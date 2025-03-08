@@ -15,7 +15,5 @@
 .button {
 	display: flex;
 	flex-direction: column;
-	margin: 4px;
-	padding: 4px;
 	width: 390px;
 }
