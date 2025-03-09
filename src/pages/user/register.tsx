@@ -1,14 +1,15 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Backend } from '@/lib/backend';
 import { options } from '@/lib/toastify.ts/toastify.constants';
 import { User } from '@/type/user.type';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 
-export const UserRegister = () => {
+export const UserRegisterPage = () => {
 	const navigate = useNavigate();
 
 	const [state, setState] = useState<User>({
@@ -45,6 +46,7 @@ export const UserRegister = () => {
 			[e.target.id]: e.target.value,
 		}));
 	};
+
 	return (
 		<div className="flex flex-col justify-center items-center gap-10 min-w-10/12">
 			<ToastContainer />
@@ -74,7 +76,9 @@ export const UserRegister = () => {
 				</div>
 
 				<div className="button" style={{ marginTop: '22px' }}>
-					<Button type="submit">REGISTRAR</Button>
+					<Button type="submit" className="cursor-pointer">
+						REGISTRAR
+					</Button>
 				</div>
 			</form>
 		</div>
