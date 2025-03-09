@@ -1,12 +1,15 @@
-import { Input } from '@/components/ui/input';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import { Backend } from '@/lib/backend';
 import { options } from '@/lib/toastify.ts/toastify.constants';
 import { Category } from '@/type/category.type';
 import { Media } from '@/type/media.type';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@radix-ui/react-select';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { Label } from 'recharts';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export type MediaFormAttr = {
 	media: Media;
@@ -77,57 +80,74 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 
 	return (
 		<div className="flex flex-col justify-center items-center gap-10 min-w-10/12">
-			<form onSubmit={onSubmit}>
-				<div className="grid w-full items-center gap-1.5">
-					<Label className="text-lg">Título</Label>
+			<form onSubmit={onSubmit} className="w-full">
+				<div className="grid w-full items-center gap-2">
+					<Label className="text-left font-semibold">Título</Label>
 					<Input onChange={onChange} value={state.title} id="title" />
+				</div>
 
-					<div className="flex justify-between">
-						<div>
-							<Label className="text-lg">Tipo</Label>
-							<Select>
-								<SelectTrigger className="w-[180px]">
-									<SelectValue placeholder="Selecione o tipo" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectItem value="apple">Apple</SelectItem>
-										<SelectItem value="banana">Banana</SelectItem>
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</div>
+				<div className="flex justify-between gap-6 mt-4">
+					<div className="grid w-full items-center gap-2">
+						<Label className="text-left font-semibold">Tipo</Label>
+						<Select
+							value={String(state.type)}
+							onValueChange={(value) => setState((state) => ({ ...state, type: Number(value) }))}
+						>
+							<SelectTrigger className="w-[180px]">
+								<SelectValue placeholder="Selecione a categoria" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									<SelectItem value={String(1)}>Série</SelectItem>
+									<SelectItem value={String(0)}>Filme</SelectItem>
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+					</div>
 
-						<div>
-							<Label className="text-lg">Categoria</Label>
-							<Select>
-								<SelectTrigger className="w-[180px]">
-									<SelectValue placeholder="Selecione a categoria" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectItem value="apple">Apple</SelectItem>
-										<SelectItem value="banana">Banana</SelectItem>
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</div>
+					<div className="grid w-full items-center gap-2">
+						<Label className="text-left font-semibold">Categoria</Label>
+						<Select
+							value={String(state.category)}
+							onValueChange={(value) => setState((state) => ({ ...state, category: Number(value) }))}
+						>
+							<SelectTrigger className="w-[100%]">
+								<SelectValue placeholder="Selecione o tipo" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									{categories.map((category) => {
+										return <SelectItem value={String(category.id)}>{category.name}</SelectItem>;
+									})}
+								</SelectGroup>
+							</SelectContent>
+						</Select>
 					</div>
 				</div>
 
-				<div className=" flex justify-between">
-					<div>
-						<Label className="text-lg">Duração</Label>
-						<Input placeholder="min." />
+				<div className=" flex justify-between gap-6">
+					<div className="grid w-full items-center gap-2 mt-4">
+						<Label className="text-left font-semibold">Duração</Label>
+						<Input value={state.duration} onChange={onChange} id="duration" placeholder="min." />
 					</div>
 
-					<div>
-						<Label className="text-lg">Data</Label>
-						<Input type="date" />
+					<div className="grid w-full items-center gap-2">
+						<Label className="text-left font-semibold mt-4">Data</Label>
+						<Input value={String(state.date)} onChange={onChange} id="date" type="date" />
 					</div>
 				</div>
 
-				<div className="button"></div>
+				<div className="flex justify-between mt-4 gap-2">
+					<div>
+						<Button className="cursor-pointer" variant="outline">
+							Cancelar
+						</Button>
+					</div>
+
+					<div>
+						<Button className="cursor-pointer">Adicionar</Button>
+					</div>
+				</div>
 			</form>
 		</div>
 	);

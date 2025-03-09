@@ -75,7 +75,7 @@ export const UserRegisterPage = () => {
 					<Input type="password" />
 				</div>
 
-				<div className="button" style={{ marginTop: '22px' }}>
+				<div className="button mt-3.5">
 					<Button type="submit" className="cursor-pointer">
 						REGISTRAR
 					</Button>
