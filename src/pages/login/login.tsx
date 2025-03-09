@@ -1,15 +1,13 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
-import { Button } from '@/components/ui/button';
 import { Backend } from '@/lib/backend';
 import { options } from '@/lib/toastify.ts/toastify.constants';
-import '@/style/style.css';
-import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 
 export const Login = () => {
 	const navigate = useNavigate();
@@ -32,7 +30,7 @@ export const Login = () => {
 					: // Salva a chave enquanto a sessão durar
 					  sessionStorage.setItem('token', response.access_token);
 
-				navigate('/dashboard');
+				navigate('/media/register');
 			})
 			.catch((e) => {
 				const message = e.status == '401' ? 'Usuário não encontrado' : 'Não foi possível realizar o login';
@@ -102,7 +100,9 @@ export const Login = () => {
 					</div>
 
 					<div className="button">
-						<Button type="submit">Entrar</Button>
+						<Button className="cursor-pointer" type="submit">
+							Entrar
+						</Button>
 					</div>
 				</form>
 
