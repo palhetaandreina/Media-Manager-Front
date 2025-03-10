@@ -4,34 +4,45 @@ import { toast } from 'react-toastify';
 import { Backend } from '@/lib/backend';
 import { options } from '@/lib/toastify.ts/toastify.constants';
 import { Category } from '@/type/category.type';
-import { Media } from '@/type/media.type';
+import { MediaDTO } from '@/type/media-dto.type';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Media } from '@/type/media.type';
 
 export type MediaFormAttr = {
-	media: Media;
-	onSuccess?: (media: Media) => void;
-	onFailure?: (media: Media, err: Error) => void;
+	media: MediaDTO;
+	onSuccess?: (media: MediaDTO) => void;
+	onFailure?: (media: MediaDTO, err: Error) => void;
 };
 
-export const defaultMedia = (media?: Record<string, any>): Media => {
+export const toDTO = (media?: Media): MediaDTO => {
 	return {
 		id: media?.id ?? undefined,
 		type: media?.type ? 1 : 0,
-		category: media?.category?.id ?? undefined,
+		category: media?.category?.id ?? 0,
 		title: media?.title ?? '',
-		duration: media?.duration ?? undefined,
+		duration: media?.duration ?? 0,
 		date: media?.date ?? new Date(),
+	};
+};
+
+export const defaultMedia = (): Media => {
+	return {
+		type: 'Filme',
+		category: null,
+		title: '',
+		duration: 0,
+		date: new Date(),
 	};
 };
 
 export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 	const [categories, setCategories] = useState<Category[]>([]);
 
-	const [state, setState] = useState<Media>(media);
+	const [state, setState] = useState<MediaDTO>(media);
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -62,6 +73,8 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// target = elemento que causou o evento
 
+		console.log(e.target.value);
+
 		setState((state) => ({
 			...state,
 			[e.target.id]: e.target.value,
@@ -78,6 +91,7 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 			});
 	}, []);
 
+	const onCancel = () => onSuccess && onSuccess(media);
 	return (
 		<div className="flex flex-col justify-center items-center gap-10 min-w-10/12">
 			<form onSubmit={onSubmit} className="w-full">
@@ -89,13 +103,15 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 				<div className="flex justify-between gap-6 mt-4">
 					<div className="grid w-full items-center gap-2">
 						<Label className="text-left font-semibold">Tipo</Label>
+
 						<Select
 							value={String(state.type)}
 							onValueChange={(value) => setState((state) => ({ ...state, type: Number(value) }))}
 						>
-							<SelectTrigger className="w-[180px]">
+							<SelectTrigger className="w-full">
 								<SelectValue placeholder="Selecione a categoria" />
 							</SelectTrigger>
+
 							<SelectContent>
 								<SelectGroup>
 									<SelectItem value={String(1)}>Série</SelectItem>
@@ -107,13 +123,15 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 
 					<div className="grid w-full items-center gap-2">
 						<Label className="text-left font-semibold">Categoria</Label>
+
 						<Select
 							value={String(state.category)}
 							onValueChange={(value) => setState((state) => ({ ...state, category: Number(value) }))}
 						>
-							<SelectTrigger className="w-[100%]">
+							<SelectTrigger className="w-full">
 								<SelectValue placeholder="Selecione o tipo" />
 							</SelectTrigger>
+
 							<SelectContent>
 								<SelectGroup>
 									{categories.map((category) => {
@@ -125,7 +143,7 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 					</div>
 				</div>
 
-				<div className=" flex justify-between gap-6">
+				<div className="flex justify-between gap-6">
 					<div className="grid w-full items-center gap-2 mt-4">
 						<Label className="text-left font-semibold">Duração</Label>
 						<Input value={state.duration} onChange={onChange} id="duration" placeholder="min." />
@@ -137,15 +155,17 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 					</div>
 				</div>
 
-				<div className="flex justify-between mt-4 gap-2">
+				<div className="flex justify-end mt-6 gap-2">
 					<div>
-						<Button className="cursor-pointer" variant="outline">
+						<Button className="cursor-pointer" variant="ghost" type="reset" onClick={onCancel}>
 							Cancelar
 						</Button>
 					</div>
 
 					<div>
-						<Button className="cursor-pointer">Adicionar</Button>
+						<Button className="cursor-pointer" type="submit">
+							Confirmar
+						</Button>
 					</div>
 				</div>
 			</form>
