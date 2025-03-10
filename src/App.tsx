@@ -7,6 +7,7 @@ import { UserRegisterPage } from './pages/user/register';
 import { UpdateUser } from './pages/user/update-user';
 
 import '@/style/style.css';
+import { DashboardPage } from './pages/dashboard';
 import { ForgotPasswordPage } from './pages/user/forgot-password';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 				<Route path="/user/update" element={<UpdateUser tab="account" />} />
 				<Route path="/user/reset-password" element={<UpdateUser tab="password" />} />
 				<Route path="/user/forgot-password" element={<ForgotPasswordPage />} />
+				<Route path="/dashboard" element={<DashboardPage />} />
 			</Routes>
 		</BrowserRouter>
 	);

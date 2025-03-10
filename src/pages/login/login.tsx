@@ -32,7 +32,7 @@ export const Login = () => {
 					: // Salva a chave enquanto a sessão durar
 					  sessionStorage.setItem('token', response.access_token);
 
-				navigate('/media/history');
+				navigate('/dashboard');
 			})
 			.catch((e) => {
 				const message = e.status == '401' ? 'Usuário não encontrado' : 'Não foi possível realizar o login';

@@ -9,7 +9,7 @@ import { normalize } from '@/lib/search-filter';
 import { Media } from '@/type/media.type';
 import { DeleteMediaConfirmation } from '../media/delete-media-confirmation';
 import { MediaCard } from '../media/media-card';
-import { defaultMedia, toDTO } from '../media/media-form';
+import { defaultMedia } from '../media/media-form';
 import { MediaFormContainer } from '../media/media-form-container';
 
 import { useTitle } from '@/hooks/use-title';
@@ -96,7 +96,7 @@ export const HistoryPage = () => {
 				<NoResult />
 			</div>
 
-			{media != undefined ? <MediaFormContainer media={toDTO(media)} onClose={onFormCancel} /> : null}
+			{media != undefined ? <MediaFormContainer media={media} onClose={onFormCancel} /> : null}
 
 			{deletingMedia != undefined ? <DeleteMediaConfirmation media={deletingMedia} onClose={onDeletingCancel} /> : null}
 		</div>
