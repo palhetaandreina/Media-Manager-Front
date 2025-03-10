@@ -13,9 +13,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Media } from '@/type/media.type';
 
 export type MediaFormAttr = {
-	media: MediaDTO;
-	onSuccess?: (media: MediaDTO) => void;
-	onFailure?: (media: MediaDTO, err: Error) => void;
+	media?: Media;
+	onSuccess?: (media: Media) => void;
+	onFailure?: (media: Media, err: Error) => void;
 };
 
 export const toDTO = (media?: Media): MediaDTO => {
@@ -42,7 +42,7 @@ export const defaultMedia = (): Media => {
 export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 	const [categories, setCategories] = useState<Category[]>([]);
 
-	const [state, setState] = useState<MediaDTO>(media);
+	const [state, setState] = useState<MediaDTO>(toDTO(media));
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -66,14 +66,12 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 				const message = e.status === 400 ? e?.response?.data?.message?.at(0) : 'Não foi possível cadastrar mídia';
 
 				toast.error(message, options);
-				onFailure && onFailure(media, e);
+				onFailure && onFailure(media!, e);
 			});
 	};
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		// target = elemento que causou o evento
-
-		console.log(e.target.value);
 
 		setState((state) => ({
 			...state,
@@ -91,7 +89,8 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 			});
 	}, []);
 
-	const onCancel = () => onSuccess && onSuccess(media);
+	const onCancel = () => onSuccess && onSuccess(media!);
+
 	return (
 		<div className="flex flex-col justify-center items-center gap-10 min-w-10/12">
 			<form onSubmit={onSubmit} className="w-full">

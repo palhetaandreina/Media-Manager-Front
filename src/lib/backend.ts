@@ -1,3 +1,4 @@
+import { MediaDTO } from '@/type/media-dto.type';
 import { Media } from '@/type/media.type';
 import { User } from '@/type/user.type';
 import { Category } from '../type/category.type';
@@ -33,7 +34,7 @@ export class Backend {
 		return this.http.request('/media/' + id, { method: 'DELETE' });
 	}
 
-	public async updateMedia(media: Record<string, unknown>) {
+	public async updateMedia(media: MediaDTO) {
 		const method = media.id != undefined ? 'PATCH' : 'POST';
 
 		return this.http.request('/media', { method, data: JSON.stringify(media) });
@@ -55,5 +56,17 @@ export class Backend {
 		const method = 'GET';
 
 		return this.http.request('/media/stats/category', { method });
+	}
+
+	public async sendResetPasswordEmail(email: string) {
+		const method = 'POST';
+
+		return this.http.request('/user/send-reset-password-email', { method, data: JSON.stringify({ email }) });
+	}
+
+	public async updatePassword(token: string, password: string) {
+		const method = 'PATCH';
+
+		return this.http.request('/user/reset-password', { method, data: JSON.stringify({ password, token }) });
 	}
 }

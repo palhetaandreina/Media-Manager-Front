@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Backend } from '@/lib/backend';
@@ -50,37 +51,44 @@ export const UserRegisterPage = () => {
 	return (
 		<div className="flex flex-col justify-center items-center gap-10 min-w-10/12">
 			<ToastContainer />
-			<h2 className="text-4xl">Criar Conta</h2>
 
-			<form onSubmit={onSubmit}>
-				<div className="grid w-full items-center gap-1.5">
-					<Label htmlFor="name" className="text-lg">
-						Nome
-					</Label>
-					<Input value={state.name} onChange={onChange} id="name" />
+			<Card>
+				<CardHeader>
+					<CardTitle>Criar Conta</CardTitle>
+				</CardHeader>
 
-					<Label htmlFor="email" className="text-lg">
-						Email
-					</Label>
-					<Input id="email" value={state.email} onChange={onChange} placeholder="joão@gmail.com" />
+				<CardContent>
+					<form onSubmit={onSubmit}>
+						<div className="flex flex-col gap-6">
+							<div className="grid w-full items-center gap-2">
+								<Label htmlFor="name">Nome</Label>
+								<Input value={state.name} onChange={onChange} id="name" />
+							</div>
 
-					<Label htmlFor="password" className="text-lg">
-						Senha
-					</Label>
-					<Input id="password" value={state.password} onChange={onChange} type="password" />
+							<div className="grid w-full items-center gap-2">
+								<Label htmlFor="email">Email</Label>
+								<Input id="email" value={state.email} onChange={onChange} placeholder="joão@gmail.com" />
+							</div>
 
-					<Label htmlFor="password" className="text-lg">
-						Confirmar senha
-					</Label>
-					<Input type="password" />
-				</div>
+							<div className="grid w-full items-center gap-2">
+								<Label htmlFor="password">Senha</Label>
+								<Input id="password" value={state.password} onChange={onChange} type="password" />
+							</div>
 
-				<div className="button mt-3.5">
-					<Button type="submit" className="cursor-pointer">
-						REGISTRAR
-					</Button>
-				</div>
-			</form>
+							<div className="grid w-full items-center gap-2">
+								<Label htmlFor="password">Confirmar senha</Label>
+								<Input type="password" />
+							</div>
+
+							<div className="button mt-6">
+								<Button type="submit" className="cursor-pointer">
+									REGISTRAR
+								</Button>
+							</div>
+						</div>
+					</form>
+				</CardContent>
+			</Card>
 		</div>
 	);
 };
