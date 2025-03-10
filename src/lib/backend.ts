@@ -21,7 +21,7 @@ export class Backend {
 		return this.http.request('/user');
 	}
 
-	public async getMedias(from: Date, to: Date): Promise<Media[]> {
+	public async getMedias(from?: Date, to?: Date): Promise<Media[]> {
 		return this.http.request('/media', { params: { from, to } });
 	}
 

@@ -1,18 +1,20 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ToastContainer } from 'react-toastify';
-import { MediaForm, defaultMedia } from './media-form';
+import { MediaForm, toDTO } from './media-form';
 
 export const MediaRegisterPage = () => {
 	return (
 		<div className="flex flex-col justify-center items-center gap-10 min-w-10/12">
 			<ToastContainer />
-			<Card className="w-[420px]">
+
+			<Card className="max-w-md">
 				<CardHeader>
 					<CardTitle>Adicionar mídia</CardTitle>
 					<CardDescription>Insira os filmes/séries que já assistiu</CardDescription>
 				</CardHeader>
+
 				<CardContent>
-					<MediaForm media={defaultMedia()} />
+					<MediaForm media={toDTO()} />
 				</CardContent>
 			</Card>
 		</div>
