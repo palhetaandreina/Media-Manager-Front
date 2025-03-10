@@ -1,10 +1,10 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { MediaDTO } from '@/type/media-dto.type';
+import { Media } from '@/type/media.type';
 import { MediaForm } from './media-form';
 
 export type MediaFormContainerAttr = {
 	onClose: (modified: boolean) => void;
-	media: MediaDTO;
+	media: Media;
 };
 
 export const MediaFormContainer = ({ onClose, media }: MediaFormContainerAttr) => {

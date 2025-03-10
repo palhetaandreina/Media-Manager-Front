@@ -25,7 +25,7 @@ export const DeleteMediaConfirmation = ({ onClose, media }: DeleteMediaConfirmat
 			.deleteMedia(media.id!)
 			.then(() => toast.success('Mídia deletada com sucesso', options))
 			.catch((e) => {
-				console.log(e.message);
+				console.error(e.message);
 				toast.error('Não foi possível deletar mídia', options);
 			})
 			.finally(() => onClose(true));

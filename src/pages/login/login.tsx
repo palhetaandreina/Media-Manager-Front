@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -63,61 +63,67 @@ export const Login = () => {
 			<div className="flex flex-col justify-center items-center gap-4 min-w-10/12">
 				<ToastContainer />
 
-				<Card className="p-6">
-					<div>
-						<h1 className="text-2xl">Fazer Login</h1>
-					</div>
+				<Card>
+					<CardHeader>
+						<CardTitle>Fazer Login</CardTitle>
+					</CardHeader>
 
-					<form onSubmit={onSubmit}>
-						<div className="flex flex-col gap-5">
-							<div className="grid w-full items-center gap-2">
-								<Label htmlFor="email">Email:</Label>
+					<CardContent>
+						<form onSubmit={onSubmit}>
+							<div className="flex flex-col gap-5">
+								<div className="grid w-full items-center gap-2">
+									<Label htmlFor="email">Email:</Label>
 
-								<Input value={state.email} onChange={onChange} id="email" placeholder="joão@gmail.com" />
-							</div>
-
-							<div className="grid w-full items-center gap-2">
-								<Label htmlFor="password">Senha:</Label>
-								<Input value={state.password} onChange={onChange} id="password" type="password" />
-							</div>
-
-							<div className="flex align-middle justify-between gap-3">
-								<div className="flex gap-3">
-									<Checkbox
-										checked={state.remember}
-										onCheckedChange={toggleRemember}
-										className="items-top flex space-x-2"
-										id="remember"
-									/>
-
-									<label
-										htmlFor="remember"
-										className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-									>
-										Lembrar senha
-									</label>
+									<Input value={state.email} onChange={onChange} id="email" placeholder="joão@gmail.com" />
 								</div>
 
-								<Link to="/user/register" className="underline">
-									Esqueci a senha
-								</Link>
-							</div>
+								<div className="grid w-full items-center gap-2">
+									<Label htmlFor="password">Senha:</Label>
+									<Input value={state.password} onChange={onChange} id="password" type="password" />
+								</div>
 
-							<div className="button">
-								<Button className="cursor-pointer" type="submit">
-									Entrar
-								</Button>
+								<div className="flex align-middle justify-between gap-3">
+									<div className="flex gap-3">
+										<Checkbox
+											checked={state.remember}
+											onCheckedChange={toggleRemember}
+											className="items-top flex space-x-2"
+											id="remember"
+										/>
+
+										<label
+											htmlFor="remember"
+											className="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+										>
+											Lembrar senha
+										</label>
+									</div>
+
+									<Link to="/user/forgot-password" className="underline">
+										Esqueci a senha
+									</Link>
+								</div>
+
+								<div className="button">
+									<Button
+										disabled={!state.email.trim().length || !state.password.trim().length}
+										className="cursor-pointer"
+										type="submit"
+									>
+										Entrar
+									</Button>
+								</div>
 							</div>
+						</form>
+
+						<div className="flex justify-center mt-6">
+							<p>Não tem uma conta? &nbsp;</p>
+
+							<Link to="/user/register" className="underline italic">
+								Clique aqui
+							</Link>
 						</div>
-					</form>
-
-					<div className="flex justify-center">
-						<p>Não tem uma conta? &nbsp;</p>
-
-						<Link to="/user/register" className="underline italic">
-							Clique aqui
-						</Link>
-					</div>
+					</CardContent>
 				</Card>
 			</div>
 		</div>

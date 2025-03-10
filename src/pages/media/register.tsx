@@ -1,6 +1,7 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ToastContainer } from 'react-toastify';
-import { MediaForm, toDTO } from './media-form';
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { MediaForm } from './media-form';
 
 export const MediaRegisterPage = () => {
 	return (
@@ -14,7 +15,7 @@ export const MediaRegisterPage = () => {
 				</CardHeader>
 
 				<CardContent>
-					<MediaForm media={toDTO()} />
+					<MediaForm />
 				</CardContent>
 			</Card>
 		</div>
