@@ -9,9 +9,10 @@ import { normalize } from '@/lib/search-filter';
 import { Media } from '@/type/media.type';
 import { DeleteMediaConfirmation } from '../media/delete-media-confirmation';
 import { MediaCard } from '../media/media-card';
-import { defaultMedia, toDTO } from '../media/media-form';
+import { defaultMedia } from '../media/media-form';
 import { MediaFormContainer } from '../media/media-form-container';
 
+import { ExportFileMenu } from '@/components/dropdown-menu';
 import { useTitle } from '@/hooks/use-title';
 import '@/style/style.css';
 
@@ -81,6 +82,8 @@ export const HistoryPage = () => {
 				<Button className="cursor-pointer" onClick={() => setMedia(defaultMedia())}>
 					Adicionar
 				</Button>
+
+				<ExportFileMenu />
 			</div>
 
 			<div className="flex flex-col p-6 gap-3">
@@ -96,7 +99,7 @@ export const HistoryPage = () => {
 				<NoResult />
 			</div>
 
-			{media != undefined ? <MediaFormContainer media={toDTO(media)} onClose={onFormCancel} /> : null}
+			{media != undefined ? <MediaFormContainer media={media} onClose={onFormCancel} /> : null}
 
 			{deletingMedia != undefined ? <DeleteMediaConfirmation media={deletingMedia} onClose={onDeletingCancel} /> : null}
 		</div>

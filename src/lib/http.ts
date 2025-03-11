@@ -20,7 +20,7 @@ export class Http {
 	}
 
 	private defaultHeaders() {
-		const token = sessionStorage.getItem('token') ?? localStorage.getItem('token');
+		const token = sessionStorage.getItem('token') || localStorage.getItem('token');
 
 		return {
 			'Content-Type': 'application/json',
@@ -40,12 +40,10 @@ export class Http {
 			...this.defaultHeaders(),
 		};
 
-		const response = await this.axios.request({
+		return await this.axios.request({
 			...config,
 			url,
 			headers,
 		});
-
-		return response.data ?? null;
 	}
 }

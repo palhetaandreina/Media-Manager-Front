@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -28,11 +28,11 @@ export const Login = () => {
 			.then((response) => {
 				state.remember
 					? // Salva a chave permanentemente no navegador
-					  localStorage.setItem('token', response.access_token)
+					  localStorage.setItem('token', response.data.access_token)
 					: // Salva a chave enquanto a sessão durar
-					  sessionStorage.setItem('token', response.access_token);
+					  sessionStorage.setItem('token', response.data.access_token);
 
-				navigate('/media/history');
+				navigate('/dashboard');
 			})
 			.catch((e) => {
 				const message = e.status == '401' ? 'Usuário não encontrado' : 'Não foi possível realizar o login';
@@ -57,6 +57,11 @@ export const Login = () => {
 	};
 
 	useTitle('Login');
+
+	useEffect(() => {
+		localStorage.removeItem('token');
+		sessionStorage.removeItem('token');
+	}, []);
 
 	return (
 		<div className="flex flex-col justify-center items-center gap-4">
