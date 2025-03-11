@@ -1,0 +1,20 @@
+services:
+  frontend:
+    tty: true
+    # Habilitar o container enquanto não for parado
+    restart: unless-stopped
+    # Nome da imagem que será feito
+    image: media-management-front
+    build:
+      context: ./
+      # O nome do arquivo docker
+      dockerfile: ./dockerfile
+    # Persistencia de dados, criando subconteiners para o container principal
+    volumes:
+      - ./:/home/node/app/
+      - node_modules:/home/node/app/node_modules
+    ports:
+      - 5173:5173
+
+volumes:
+  node_modules:

@@ -12,6 +12,7 @@ import { MediaCard } from '../media/media-card';
 import { defaultMedia } from '../media/media-form';
 import { MediaFormContainer } from '../media/media-form-container';
 
+import { ExportFileMenu } from '@/components/dropdown-menu';
 import { useTitle } from '@/hooks/use-title';
 import '@/style/style.css';
 
@@ -81,6 +82,8 @@ export const HistoryPage = () => {
 				<Button className="cursor-pointer" onClick={() => setMedia(defaultMedia())}>
 					Adicionar
 				</Button>
+
+				<ExportFileMenu />
 			</div>
 
 			<div className="flex flex-col p-6 gap-3">

@@ -92,15 +92,15 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 	const onCancel = () => onSuccess && onSuccess(media!);
 
 	return (
-		<div className="flex flex-col justify-center items-center gap-10 min-w-10/12">
-			<form onSubmit={onSubmit} className="w-full">
-				<div className="grid w-full items-center gap-2">
+		<form onSubmit={onSubmit} className="w-full">
+			<div className="flex flex-col justify-center items-center gap-3 min-w-10/12">
+				<div className="grid w-full items-center gap-3">
 					<Label className="text-left font-semibold">Título</Label>
 					<Input onChange={onChange} value={state.title} id="title" />
 				</div>
 
-				<div className="flex justify-between gap-6 mt-4">
-					<div className="grid w-full items-center gap-2">
+				<div className="w-full grid xs:grid-cols-1 sm:grid-cols-2 gap-3">
+					<div className="grid w-full items-center gap-3">
 						<Label className="text-left font-semibold">Tipo</Label>
 
 						<Select
@@ -120,7 +120,7 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 						</Select>
 					</div>
 
-					<div className="grid w-full items-center gap-2">
+					<div className="grid w-full items-center gap-3">
 						<Label className="text-left font-semibold">Categoria</Label>
 
 						<Select
@@ -132,7 +132,7 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 							</SelectTrigger>
 
 							<SelectContent>
-								<SelectGroup>
+								<SelectGroup className="max-h-24">
 									{categories.map((category) => {
 										return <SelectItem value={String(category.id)}>{category.name}</SelectItem>;
 									})}
@@ -142,32 +142,28 @@ export const MediaForm = ({ media, onSuccess, onFailure }: MediaFormAttr) => {
 					</div>
 				</div>
 
-				<div className="flex justify-between gap-6">
-					<div className="grid w-full items-center gap-2 mt-4">
+				<div className="grid w-full xs:grid-cols-1 sm:grid-cols-2 gap-3">
+					<div className="grid w-full items-center gap-3">
 						<Label className="text-left font-semibold">Duração</Label>
 						<Input value={state.duration} onChange={onChange} id="duration" placeholder="min." />
 					</div>
 
-					<div className="grid w-full items-center gap-2">
-						<Label className="text-left font-semibold mt-4">Data</Label>
+					<div className="grid w-full items-center gap-3">
+						<Label className="text-left font-semibold">Data</Label>
 						<Input value={String(state.date)} onChange={onChange} id="date" type="date" />
 					</div>
 				</div>
 
-				<div className="flex justify-end mt-6 gap-2">
-					<div>
-						<Button className="cursor-pointer" variant="ghost" type="reset" onClick={onCancel}>
-							Cancelar
-						</Button>
-					</div>
+				<div className="w-full flex justify-end mt-6 gap-3">
+					<Button className="cursor-pointer" variant="ghost" type="reset" onClick={onCancel}>
+						Cancelar
+					</Button>
 
-					<div>
-						<Button className="cursor-pointer" type="submit">
-							Confirmar
-						</Button>
-					</div>
+					<Button className="cursor-pointer" type="submit">
+						Confirmar
+					</Button>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	);
 };
