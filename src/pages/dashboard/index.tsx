@@ -2,6 +2,7 @@ import { Header } from '@/components/header';
 import { useTitle } from '@/hooks/use-title';
 import { CategoriesChart } from './categories-chart';
 import { HoursChart } from './hours-chart';
+import { WeekChart } from './week-chart';
 
 export const DashboardPage = () => {
 	useTitle('Dashboard');
@@ -14,6 +15,8 @@ export const DashboardPage = () => {
 				<HoursChart />
 
 				<CategoriesChart />
+
+				<WeekChart />
 			</div>
 		</div>
 	);

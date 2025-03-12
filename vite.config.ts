@@ -11,4 +11,10 @@ export default defineConfig({
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
+	css: {
+		modules: {
+			localsConvention: 'camelCase',
+			generateScopedName: '[local]_[hash:base64:2]',
+		},
+	},
 });
